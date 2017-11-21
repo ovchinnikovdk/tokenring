@@ -26,7 +26,8 @@ public class Node implements Runnable {
                 }
                 netMessage.decTtl();
                 if (netMessage.isDead()) {
-                    tokenRing.markDead(netMessage);
+                    //Logger for statistics
+
                 }
                 else synchronized (putQueue) {
                     putQueue.add(netMessage);

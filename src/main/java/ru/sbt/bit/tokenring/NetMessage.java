@@ -29,7 +29,7 @@ public class NetMessage {
                 '}';
     }
 
-    public double latency() {
-        return ((new Date()).getTime() - this.date.getTime()) / 1000.0;
+    public Date getDate() {
+        return date;
     }
 }
