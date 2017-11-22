@@ -5,11 +5,11 @@ public class Main {
         int n = 8;
         TokenRing tokenRing = new TokenRing(n);
         tokenRing.startTokenRing();
-        for (int i = 0; i < 200000; i++) {
-            tokenRing.sendMessage(new NetMessage(Math.min(n, 128)));
+        for (int i = 0; i < 2000000; i++) {
+            tokenRing.sendMessage(new NetMessage(n * 2));
         }
         Thread.sleep(20000);
         tokenRing.stopTokenRing();
-        tokenRing.getLogger().printStatistics();
+        tokenRing.plotThoughput();
     }
 }

@@ -2,13 +2,17 @@ package ru.sbt.bit.tokenring;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class TokenRing {
     private List<NetMessage>[] netMessageLists;
     private Thread[] nodes;
     private Logger logger;
+    private Random random;
 
     public TokenRing(int n) {
+        logger = new Logger();
+        random = new Random();
         netMessageLists = new List[n];
         nodes = new Thread[n];
         for (int i = 0; i < n; i++) {
@@ -17,7 +21,6 @@ public class TokenRing {
         for (int i = 0; i < n; i++) {
             nodes[i] = new Thread(new Node(netMessageLists[i], netMessageLists[(i + 1) % n], this));
         }
-        logger = new Logger();
     }
 
     public void startTokenRing() {
@@ -26,8 +29,9 @@ public class TokenRing {
         }
     }
 
-    public Logger getLogger() {
-        return logger;
+    public void plotThoughput(){
+        double[][] throughPutLine = logger.getThroughPutLine();
+        new DrawGraph().draw(throughPutLine[0], throughPutLine[1]);
     }
 
     public void stopTokenRing() {
@@ -35,8 +39,13 @@ public class TokenRing {
     }
 
     public void sendMessage(NetMessage message) {
-        synchronized (netMessageLists[0]) {
-            netMessageLists[0].add(message);
+        int index = random.nextInt(netMessageLists.length);
+        synchronized (netMessageLists[index]) {
+            netMessageLists[index].add(message);
         }
+    }
+
+    public void log(NetMessage msg) {
+        logger.log(msg);
     }
 }
