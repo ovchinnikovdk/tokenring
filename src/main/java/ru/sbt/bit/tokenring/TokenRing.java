@@ -29,9 +29,8 @@ public class TokenRing {
         }
     }
 
-    public void plotThoughput(){
-        double[][] throughPutLine = logger.getThroughPutLine();
-        new DrawGraph().draw(throughPutLine[0], throughPutLine[1]);
+    public Logger getLogger() {
+        return logger;
     }
 
     public void stopTokenRing() {

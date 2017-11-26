@@ -10,6 +10,5 @@ public class Main {
         }
         Thread.sleep(20000);
         tokenRing.stopTokenRing();
-        tokenRing.plotThoughput();
     }
 }

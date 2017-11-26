@@ -15,8 +15,20 @@ import java.io.IOException;
  * Created by SBT-Ovchinnikov-DK on 22.11.2017.
  */
 public class DrawGraph {
-    public void draw(double[] x, double[] y) {
-        XYSeries series = new XYSeries("Throughput");
+    public void drawGraphicIntoFile(double[] x, double[] y, String graphicName, IndexType type) {
+        String xAxisLabel = "time";
+        String yAxisLabel = "messages";
+
+        if (type == IndexType.LATENCY) {
+            xAxisLabel = "time";
+            yAxisLabel = "latency";
+        }
+        else if (type == IndexType.THROUGHPUT) {
+            xAxisLabel = "time";
+            yAxisLabel = "messages";
+        }
+
+        XYSeries series = new XYSeries(type.toString());
         for (int i = 0; i < x.length; i++) {
             series.add(x[i], y[i]);
         }
@@ -24,16 +36,16 @@ public class DrawGraph {
         XYSeriesCollection collection = new XYSeriesCollection();
         collection.addSeries(series);
 
-        JFreeChart chart = ChartFactory.createXYLineChart("Throughput",
-                "time",
-                "messages",
+        JFreeChart chart = ChartFactory.createXYLineChart(graphicName,
+                xAxisLabel,
+                yAxisLabel,
                 collection,
                 PlotOrientation.VERTICAL,
                 true,
                 true,
                 false);
         try {
-            ChartUtilities.saveChartAsPNG(new File("result/test_throughput.png"), chart, 800, 800);
+            ChartUtilities.saveChartAsPNG(new File("result/" + graphicName + ".png"), chart, 800, 800);
         } catch (IOException e) {
             e.printStackTrace();
         }

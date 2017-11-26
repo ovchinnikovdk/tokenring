@@ -48,22 +48,20 @@ public class Logger {
         return result;
     }
 
-    public void printStatistics() {
-        double sum = 0;
-        for (Integer value : throughputMap.values()) {
-            sum += value;
-        }
-        System.out.println("Average throughput: " + sum / throughputMap.size() + " messages/sec");
-        for (Long time : latencyMap.keySet()) {
-            double sumLatency = 0;
-            for (double latency : latencyMap.get(time)) {
-                sumLatency += latency;
+    public double[][] getLatencyLine() {
+        double result[][] = new double[2][latencyMap.size()];
+        int index = 0;
+        for (Map.Entry<Long, List<Double>> entry : latencyMap.entrySet()) {
+            double sum = 0.0;
+            for (Double value : entry.getValue()) {
+                sum += value;
             }
-            System.out.println("Average latency at time: " + time + " is "
-                    + sumLatency / latencyMap.get(time).size()
-                    + "(" + latencyMap.get(time).size() + " messages)");
+            result[0][index] = entry.getKey();
+            result[1][index++] = sum / entry.getValue().size();
         }
-
+        return result;
     }
+
+
 
 }
