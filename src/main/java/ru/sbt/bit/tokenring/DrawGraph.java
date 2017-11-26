@@ -20,7 +20,7 @@ public class DrawGraph {
         String yAxisLabel = "messages";
 
         if (type == IndexType.LATENCY) {
-            xAxisLabel = "time";
+            xAxisLabel = "messages";
             yAxisLabel = "latency";
         }
         else if (type == IndexType.THROUGHPUT) {

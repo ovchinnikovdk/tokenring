@@ -207,7 +207,7 @@
         Студент \mtgroupnumtext{} группы \\
         \mtauthortext{} \\
         \vspace{2em}
-        Научный руководитель \\
+        Проверяющий \\
         \mtsupervisortext{} \\
     \end{flushright}
 
@@ -221,8 +221,9 @@
 }
 
 \newcommand{\titlecontents}{
-    \titlepage \addemptypage
-    \tableofcontents \addemptypage
+    \titlepage
+    \newpage
+    \tableofcontents
     \pagestyle{miptthesis}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

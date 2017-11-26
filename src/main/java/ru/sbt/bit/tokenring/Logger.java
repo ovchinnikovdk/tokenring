@@ -52,12 +52,8 @@ public class Logger {
         double result[][] = new double[2][latencyMap.size()];
         int index = 0;
         for (Map.Entry<Long, List<Double>> entry : latencyMap.entrySet()) {
-            double sum = 0.0;
-            for (Double value : entry.getValue()) {
-                sum += value;
-            }
             result[0][index] = entry.getKey();
-            result[1][index++] = sum / entry.getValue().size();
+            result[1][index++] = entry.getValue().size();
         }
         return result;
     }
